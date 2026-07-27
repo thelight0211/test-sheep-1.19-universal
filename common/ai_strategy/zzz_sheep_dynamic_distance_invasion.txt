@@ -1,0 +1,29 @@
+dynamic_distance_invasion_limits = {
+	enable = {
+		is_major = yes
+		has_war = yes
+		NOT = {
+			any_enemy_country = {
+				is_neighbor_of = ROOT
+			}
+		}
+		alliance_naval_strength_ratio < 1.5
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = invasion_unit_request
+		state_trigger = {
+			is_coastal = yes
+			owner = {
+				has_war_with = ROOT
+			}
+			NOT = {
+				is_in_array = {
+					array = ROOT.valid_naval_targets
+					value = THIS
+				}
+			}
+		}
+		value = -10000
+	}
+}

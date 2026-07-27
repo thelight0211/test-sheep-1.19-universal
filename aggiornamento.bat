@@ -1,24 +1,15 @@
 @echo off
+:: Naviga automaticamente nella cartella della mod
 cd /d "C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19"
-
-echo ========================================
-echo  Aggiornamento repo GitHub in corso...
-echo ========================================
-echo.
-
+echo Seleziono i file modificati...
 git add .
-git status
-
-echo.
-set /p msg="Messaggio del commit (es. Fix, Update, ecc.): "
-
-if "%msg%"=="" set msg=Update mod
-
+:: Ti chiede cosa hai cambiato (premi Invio per lasciare il messaggio predefinito)
+set /p msg="Inserisci il messaggio di commit (oppure premi Invio per lasciare 'Aggiornamento mod'): "
+if "%msg%"=="" set msg=Aggiornamento mod
+echo Salvo le modifiche locali...
 git commit -m "%msg%"
+echo Invio i file su GitHub...
 git push origin main
-
 echo.
-echo ========================================
-echo  Fatto!
-echo ========================================
+echo Caricamento completato con successo!
 pause

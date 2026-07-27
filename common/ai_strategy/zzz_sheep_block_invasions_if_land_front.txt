@@ -1,0 +1,15 @@
+block_invasions_if_land_front_exists = {
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = invasion_unit_request
+		state_trigger = {
+			owner = {
+				is_neighbor_of = ROOT
+			}
+		}
+		value = -10000
+	}
+}

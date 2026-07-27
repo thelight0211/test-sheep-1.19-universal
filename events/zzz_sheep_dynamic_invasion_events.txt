@@ -1,0 +1,37 @@
+add_namespace = dynamic_invasion
+
+country_event = {
+	id = dynamic_invasion.1
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		clear_array = valid_naval_targets
+		every_state = {
+			limit = {
+				is_coastal = yes
+				owner = {
+					has_war_with = ROOT
+				}
+			}
+			save_event_target_as = dynamic_invasion_candidate_state
+			if = {
+				limit = {
+					ROOT = {
+						any_controlled_state = {
+							distance_to = {
+								target = event_target:dynamic_invasion_candidate_state
+								value < 150
+							}
+						}
+					}
+				}
+				ROOT = {
+					add_to_array = {
+						array = valid_naval_targets
+						value = event_target:dynamic_invasion_candidate_state
+					}
+				}
+			}
+		}
+	}
+}

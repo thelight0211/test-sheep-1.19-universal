@@ -1,0 +1,20 @@
+on_actions = {
+	on_monthly = {
+		effect = {
+			if = {
+				limit = {
+					is_major = yes
+					is_ai = yes
+					has_war = yes
+					NOT = {
+						any_enemy_country = {
+							is_neighbor_of = ROOT
+						}
+					}
+					alliance_naval_strength_ratio < 1.5
+				}
+				country_event = dynamic_invasion.1
+			}
+		}
+	}
+}
