@@ -1,0 +1,878 @@
+peace_time_mobilisation_strategy = {
+	enable = {
+		threat < 0.2
+		has_war = no
+	}
+
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = dockyard_to_military_factory_ratio
+		value = -100
+	}
+	ai_strategy = {
+		type = building_target
+		id = fuel_silo
+		value = -100
+	}
+	ai_strategy = {
+		type = equipment_market_spend_factories
+		value = -100
+	}
+}
+war_time_mobilisation_strategy = {
+	enable = {
+		OR = {
+			threat > 0.80
+			has_war = yes
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 30
+	}
+}
+dockyard_mobilisation_strategy = {
+	enable = {
+		is_major = yes
+		NOT = {
+			any_country = {
+				has_war_with = ROOT
+				is_neighbor_of = ROOT
+				is_major = yes
+				has_capitulated = no
+			}
+		}
+		any_country = {
+			has_war_with = ROOT
+			is_major = yes
+			NOT = { is_neighbor_of = ROOT }
+			NOT = { 
+				any_country = {
+					is_in_faction_with = ROOT
+					is_major = yes
+					is_neighbor_of = PREV
+				}
+			}
+			NOT = { surrender_progress > 0 }
+		}
+	}
+
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = dockyard_to_military_factory_ratio
+		value = 10
+	}
+}
+dockyard_mobilisation_strategy_2 = {
+	enable = {
+		is_major = yes
+		NOT = {
+			any_country = {
+				NOT = { is_in_faction_with = ROOT }
+				is_neighbor_of = ROOT
+				is_major = yes
+				has_capitulated = no
+			}
+		}
+		any_country = {
+			has_war_with = ROOT
+			is_major = yes
+			NOT = { is_neighbor_of = ROOT }
+			NOT = { 
+				any_country = {
+					is_in_faction_with = ROOT
+					is_major = yes
+					is_neighbor_of = PREV
+				}
+			}
+			NOT = { surrender_progress > 0 }
+		}
+	}
+
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = dockyard_to_military_factory_ratio
+		value = 30
+	}
+}
+antagonist_need_more_factories = {
+	enable = {
+		num_of_military_factories < num_of_civilian_factories
+		OR = {
+			has_country_flag = antagonist_flag
+			AND = {
+				any_neighbor_country = {
+					has_country_flag = major_antagonist_flag
+					is_in_faction = no
+					NOT = { is_in_faction_with = ROOT }
+				}
+				ROOT = { is_in_faction = yes }
+			}
+			any_allied_country = {
+				has_country_flag = major_antagonist_flag
+			}
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 30
+	}
+}
+major_antagonist_need_more_factories = {
+	enable = {
+		has_country_flag = major_antagonist_flag
+		num_of_military_factories < num_of_civilian_factories
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 60
+	}
+}
+increase_factory_mil_ramp_up_015 = {
+	enable = {
+		has_country_flag = country_mil_ramp_up_015
+		ROOT.num_of_military_factories < ROOT.num_of_civilian_factories
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 25
+	}
+}
+increase_factory_mil_ramp_up_025 = {
+	enable = {
+		has_country_flag = country_mil_ramp_up_025
+		ROOT.num_of_military_factories < ROOT.num_of_civilian_factories
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 25
+	}
+}
+increase_factory_mil_ramp_up_050 = {
+	enable = {
+		has_country_flag = country_mil_ramp_up_050
+		ROOT.num_of_military_factories < ROOT.num_of_civilian_factories
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 25
+	}
+}
+increase_factory_weight = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_global_flag = {
+			flag = the_game_has_begun
+			days > 180
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 5
+	}
+}
+increase_factory_weight2 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_global_flag = {
+			flag = the_game_has_begun
+			days > 360
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 5
+	}
+}
+increase_factory_weight3 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_global_flag = {
+			flag = the_game_has_begun
+			days > 720
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 5
+	}
+}
+increase_factory_weight4 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_global_flag = {
+			flag = the_game_has_begun
+			days > 1000
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 5
+	}
+}
+increase_factory_weight5 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_global_flag = {
+			flag = the_game_has_begun
+			days > 1500
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 5
+	}
+}
+increase_factory_weight6 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_global_flag = {
+			flag = the_game_has_begun
+			days > 2000
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio
+		value = 5
+	}
+}
+save_pp = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_political_power < 200
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = pp_spend_priority
+		id = admiral
+		value = -200
+	}
+}
+
+spend_pp_on_chief_of_army = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_political_power > 125
+		has_army_experience < 50
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = pp_spend_priority
+		id = army_chief
+		value = 50
+	}
+
+	ai_strategy = {
+		type = pp_spend_priority
+		id = political_advisor
+		value = -50
+	}
+}
+spend_pp_on_political_advisor = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_political_power > 125
+		has_army_experience > 50
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = pp_spend_priority
+		id = political_advisor
+		value = 50
+	}
+}
+minor_count_til_10 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		is_major = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 10
+	}
+}
+
+scout_plane_cuz_why_not = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_deployed_air_force_size = {
+			size > 1000
+			type = fighter
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = scout_plane
+		value = 1
+	}
+}
+there_is_no_place_for_coward_in_a_civil_war = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_civil_war = yes
+		NOT = { original_tag = SPR }
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		country_trigger = {
+			has_war_with = FROM
+			original_tag = FROM
+		}
+
+		ratio = 0.3
+
+		priority = 1000
+		ordertype = front
+		execution_type = rush
+		execute_order = yes
+	}
+}
+why_dont_we_have_some_railguns = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		date < 1942.1.1
+		has_tech = railway_gun	
+		num_of_military_factories > 100
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = railway_gun
+		value = 5
+	}
+}
+why_dont_we_have_some_railguns2 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		date < 1945.1.1
+		has_tech = railway_gun	
+		num_of_military_factories > 200
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = railway_gun
+		value = 5
+	}
+}
+minimum_fighter_production_1 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 100
+		has_deployed_air_force_size = {
+			type = fighter
+			size < 10000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 2
+	}
+}
+
+minimum_fighter_production_2 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 150
+		has_deployed_air_force_size = {
+			type = fighter
+			size < 10000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 2
+	}
+}
+minimum_fighter_production_3 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 200
+		has_deployed_air_force_size = {
+			type = fighter
+			size < 10000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 4
+	}
+}
+
+minimum_fighter_production_4 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 250
+		has_deployed_air_force_size = {
+			type = fighter
+			size < 10000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 2
+	}
+}
+
+
+minimum_fighter_production_5 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 300
+		has_deployed_air_force_size = {
+			type = fighter
+			size < 10000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 8
+	}
+}
+standard_CAS_production_for_AI_1 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_deployed_air_force_size = {
+			type = fighter
+			size > 2500
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 2
+	}
+}
+standard_CAS_production_for_AI_2 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_deployed_air_force_size = {
+			type = fighter
+			size > 5000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 2
+	}
+}
+standard_CAS_production_for_AI_3 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_deployed_air_force_size = {
+			type = fighter
+			size > 7500
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 2
+	}
+}
+standard_CAS_production_for_AI_4 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_deployed_air_force_size = {
+			type = fighter
+			size > 10000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 3
+	}
+}
+standard_CAS_production_for_AI_5 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_deployed_air_force_size = {
+			type = fighter
+			size > 15000
+		}
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 3
+	}
+}
+basic_mil_fulfillment = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories < 5
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 5
+	}
+}
+
+basic_production_start = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 4
+	}
+	abort = {
+		always = no
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = infantry
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = artillery
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = anti_air
+		value = 1
+	}
+}
+basic_production_continue = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 14
+	}
+	abort = {
+		always = no
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = infantry
+		value = 2
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = artillery
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = anti_air
+		value = 1
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = anti_tank
+		value = 1
+	}
+}
+basic_production_final = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		num_of_military_factories > 29
+	}
+	abort = {
+		always = no
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = infantry
+		value = 3
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = artillery
+		value = 2
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = anti_air
+		value = 2
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = anti_tank
+		value = 1
+	}
+}
+theres_just_no_point_in_garrisoning = {
+	allowed = {
+		check_original_tag
+	}
+
+	enable = {
+		has_war = yes
+		NOT = {
+			any_enemy_country = {
+				has_navy_size = {
+					size > 40
+				}
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = garrison
+		value = -95
+	}
+}
+
+inland_dont_need_garrison = {
+	allowed = {
+		check_original_tag
+	}
+
+	enable = {
+		NOT = {
+			any_owned_state = {
+				is_coastal = yes
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = garrison
+		value = -9999
+	}
+}
+
+at_war_with_inland_dont_need_garrison = {
+	allowed = {
+		check_original_tag
+	}
+
+	enable = {
+		NOT = {
+			any_country = {
+				has_war_with = ROOT
+				any_owned_state = {
+					is_coastal = yes
+				}
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = garrison
+		value = -50
+	}
+}
+nobody_ever_upgrade_mech_unless_stockpile_is_giga = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = mechanised_infantry
+		has_equipment = { mechanized_equipment < 80000 }
+		has_dlc = "No Step Back"
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = production_upgrade_desire_offset
+		id = mechanized_equipment_3
+		value = -100
+	}
+
+	ai_strategy = {
+		type = production_upgrade_desire_offset
+		id = mechanized_equipment_2
+		value = -100
+	}
+
+	ai_strategy = {
+		type = production_upgrade_desire_offset
+		id = mechanized_equipment_1
+		value = 100
+	}
+}
+
+major_train = {
+	allowed = {
+		check_original_tag
+	}
+
+	enable = {
+		has_war = yes
+		is_major = yes
+		num_of_military_factories > 100
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = min_wanted_supply_trains
+		value = 200
+	}
+}
+major_train_base = {
+	allowed = {
+		check_original_tag
+	}
+
+	enable = {
+		is_major = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = min_wanted_supply_trains
+		value = 100
+	}
+}
+minor_train_base = {
+	allowed = {
+		check_original_tag
+	}
+
+	enable = {
+		is_major = no
+		NOT = {
+			AND = {
+				is_literally_china = yes
+				has_global_flag = china_giga
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = min_wanted_supply_trains
+		value = 25
+	}
+}
+

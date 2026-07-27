@@ -1,0 +1,79 @@
+on_actions = {
+	on_naval_invasion = {
+	 	effect = {
+		 	if = {
+				limit = {
+					NOT = { has_state_flag = recent_naval_invasion_flag }
+				}
+				set_state_flag = {
+					flag = recent_naval_invasion_flag
+					days = 180
+				} 
+			}
+	 	}
+	}
+	on_startup = {
+	 	effect = {
+		 	set_global_flag = the_game_has_begun
+	 	}
+	 	effect = {
+		 	every_country = {
+				perform_the_industry_direction_calculation = yes
+				perform_the_manpower_direction_calculation = yes
+			}
+	 	}
+		effect = {
+			every_country = {
+				limit = {
+					is_ai = yes
+				}
+				set_temp_variable = { oil_availability = resource_produced@oil }
+				multiply_temp_variable = { oil_availability = 2 }
+				if = {
+					limit = {
+						has_navy_size = {
+							size < oil_availability
+						}
+					}
+					add_ideas = incredibly_funni_navy_stuffs
+				}
+			}
+		}
+	}
+	on_monthly = {
+	 	effect = {
+		 	if = {
+				limit = {
+					threat > 5
+					any_country = { has_added_tension_amount > 3 }
+				}
+				every_country = {
+					limit = {
+						has_added_tension_amount > 3
+					}
+			 		perform_the_threat_calculation = yes
+				}
+			}
+	 	}
+	}
+	on_monthly = {
+	 	effect = {
+		 	every_country = {
+				limit = {
+					is_major = yes
+				}
+			 	perform_the_industry_calculation_1 = yes
+			}
+	 	}
+	 	effect = {
+		 	every_country = {
+				limit = {
+					has_country_flag = unit_availability_flag
+				}
+			 	perform_the_industry_calculation_2 = yes
+			 	perform_the_industry_calculation_3 = yes
+			 	perform_the_industry_calculation_4 = yes
+			}
+	 	}
+	}
+}

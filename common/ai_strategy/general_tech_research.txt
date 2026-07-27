@@ -1,0 +1,630 @@
+hope_in_mass_mob = {
+	enable = {
+		has_country_flag = need_manpower
+	}
+
+	abort = {
+		has_tech = peoples_army
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = mass_assault
+		value = 5000
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = peoples_army
+		value = 5000
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = mass_assault
+		value = 5000
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = peoples_army
+		value = 5000
+	}
+}
+hope_in_quality = {
+	enable = {
+		has_country_flag = need_quality
+	}
+
+	abort = {
+		has_tech = intergrated_support
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = superior_firepower
+		value = 5000
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = intergrated_support
+		value = 5000
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = superior_firepower
+		value = 5000
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = intergrated_support
+		value = 5000
+	}
+}
+hope_in_mass_mob2 = {
+	allowed = {
+		OR = {
+			original_tag = RUS
+			original_tag = SOV
+		}
+	}
+	enable = {
+		NOT = { has_tech = peoples_army }
+	}
+
+	abort = {
+		has_tech = peoples_army
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = mass_assault
+		value = 5000
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = peoples_army
+		value = 5000
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = mass_assault
+		value = 5000
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = peoples_army
+		value = 5000
+	}
+}
+
+boost_tank_scaling = {
+	enable = {
+		has_country_flag = economic_availability_flag
+		has_country_flag = unit_availability_flag
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 10 
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 15
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = basic_medium_tank_chassis
+		value = 110
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = antitank1
+		value = 1100
+	}
+	ai_strategy = {
+		type = research_tech
+		id = basic_medium_tank_chassis
+		value = 20
+	}
+	ai_strategy = {
+		type = research_tech
+		id = antitank1
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = 100
+	}
+}
+boost_tank_scaling2 = {
+	enable = {
+		has_country_flag = steel_availability_flag
+		has_country_flag = tungsten_availability_flag
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 25 
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 50
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = basic_medium_tank_chassis
+		value = 200
+	}
+	ai_strategy = {
+		type = research_weight_factor
+		id = antitank1
+		value = 200
+	}
+	ai_strategy = {
+		type = research_tech
+		id = basic_medium_tank_chassis
+		value = 50
+	}
+	ai_strategy = {
+		type = research_tech
+		id = antitank1
+		value = 50
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = artillery
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = 100
+	}
+}
+# if a country has 2M people, and more than 2 core states, they are marked for mass assault.
+# a country with 40M people need at least 41 core states.
+
+gun_tech_1938 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1937.1.1
+		NOT = { has_tech = infantry_weapons2 } 
+		amount_research_slots > 2
+	}
+
+	abort = {
+		has_tech = infantry_weapons2
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = infantry_weapons2
+		value = 5000
+	}
+}
+
+gun_tech_1939 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1938.1.1
+		NOT = { has_tech = improved_infantry_weapons }
+		amount_research_slots > 2 
+	}
+
+	abort = {
+		has_tech = improved_infantry_weapons
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = improved_infantry_weapons
+		value = 10000
+	}
+}
+
+
+engine_rush = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		OR = {
+			is_researching_technology = improved_small_airframe
+			has_tech = improved_small_airframe 
+		}
+	}
+
+	abort = {
+		has_tech = engines_3
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = engines_3
+		value = 5000
+	}
+}
+
+plane_rush = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		OR = {
+			is_researching_technology = engines_3
+			has_tech = engines_3
+		}
+	}
+
+	abort = {
+		has_tech = improved_small_airframe
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = improved_small_airframe
+		value = 5000
+	}
+}
+
+b_rush = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = improved_small_airframe
+	}
+
+	abort = {
+		has_tech = heavy_bombs
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = heavy_bombs
+		value = 5000
+	}
+}
+
+arty_rush = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		OR = {
+			is_researching_technology = basic_medium_tank_chassis
+			has_tech = basic_medium_tank_chassis
+		}
+	}
+
+	abort = {
+		has_tech = artillery1
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = interwar_artillery
+		value = 5000
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = artillery1
+		value = 5000
+	}
+}
+
+industry_tech_basic_machine_tools = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1936.1.1
+		NOT = { has_tech = basic_machine_tools } 
+	}
+
+	abort = {
+		has_tech = basic_machine_tools
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = basic_machine_tools
+		value = 5000
+	}
+}
+
+industry_tech_con1 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1936.1.1
+		NOT = { has_tech = dispersed_industry } 
+	}
+
+	abort = {
+		has_tech = dispersed_industry 
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = dispersed_industry 
+		value = 5000
+	}
+}
+
+industry_tech_improv1 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1936.1.1
+		NOT = { has_tech = improved_machine_tools } 
+	}
+
+	abort = {
+		has_tech = improved_machine_tools
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = improved_machine_tools
+		value = 5000
+	}
+}
+
+industry_tech_con2 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1936.1.1
+		NOT = { has_tech = dispersed_industry2 } 
+	}
+
+	abort = {
+		has_tech = dispersed_industry2 
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = dispersed_industry2 
+		value = 5000
+	}
+}
+
+industry_tech_con3 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1938.1.1
+		NOT = { has_tech = dispersed_industry3 } 
+	}
+
+	abort = {
+		has_tech = dispersed_industry3 
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = dispersed_industry3 
+		value = 5000
+	}
+}
+
+industry_tech_improv1 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1938.1.1
+		NOT = { has_tech = advanced_machine_tools } 
+	}
+
+	abort = {
+		has_tech = advanced_machine_tools
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = advanced_machine_tools
+		value = 5000
+	}
+}
+
+industry_tech_con4 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1940.1.1
+		NOT = { has_tech = dispersed_industry4 } 
+	}
+
+	abort = {
+		has_tech = dispersed_industry4 
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = dispersed_industry4 
+		value = 5000
+	}
+}
+
+industry_tech_improv4 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1938.1.1
+		NOT = { has_tech = assembly_line_production } 
+	}
+
+	abort = {
+		has_tech = assembly_line_production
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = assembly_line_production
+		value = 5000
+	}
+}
+
+industry_tech_con5 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1940.1.1
+		NOT = { has_tech = dispersed_industry5 } 
+	}
+
+	abort = {
+		has_tech = dispersed_industry5
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = dispersed_industry5 
+		value = 5000
+	}
+}
+
+industry_tech_improv5 = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		has_tech = infantry_weapons1
+		date > 1938.1.1
+		NOT = { has_tech = flexible_line } 
+	}
+
+	abort = {
+		has_tech = flexible_line
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = flexible_line
+		value = 5000
+	}
+}
+elec_tech_no_computing_pls = {
+	allowed = {
+		check_original_tag
+	}
+	enable = {
+		date < 1940.1.1
+	}
+
+	abort = {
+		has_tech = mechanical_computing
+	}
+
+	ai_strategy = {
+		type = research_tech
+		id = mechanical_computing
+		value = 0
+	}
+}

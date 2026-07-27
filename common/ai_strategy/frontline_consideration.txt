@@ -1,0 +1,139 @@
+
+always_prioritize_our_core = {
+	enable = {
+		surrender_progress > 0.25
+		is_historical_focus_on = no
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.15
+			has_country_flag = LSM_eligibility_nation
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 1 on force defend
+		value = 50
+	}
+}
+
+always_prioritize_our_core_2 = {
+	enable = {
+		surrender_progress > 0.50
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.40
+			has_country_flag = LSM_eligibility_nation
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 100 on force defend
+		value = 200
+	}
+}
+always_prioritize_our_core_3 = {
+	enable = {
+		surrender_progress > 0.75
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.60
+			has_country_flag = LSM_eligibility_nation
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 1000 on force defend
+		value = 2000
+	}
+}
+always_prioritize_our_core_4 = {
+	enable = {
+		surrender_progress > 0.90
+	}
+	abort = {
+		OR = {
+			surrender_progress < 0.75
+			has_country_flag = LSM_eligibility_nation
+			has_capitulated = yes
+		}
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 9999 on force defend
+		value = 9999
+	}
+}
+always_prioritize_our_core_5 = {
+	enable = {
+		is_major = no
+		any_enemy_country = {
+			strength_ratio = {
+				tag = ROOT
+				ratio > 5
+			}
+			is_neighbor_of = ROOT
+		}
+		any_state = {
+			is_owned_by = ROOT
+			is_core_of = ROOT
+			NOT = { is_fully_controlled_by = ROOT }
+		}
+	}
+	abort_when_not_enabled = yes
+	ai_strategy = {
+		type = dont_defend_ally_borders #bypass value 9999 on force defend
+		value = 9999
+	}
+}
+forced_check_omega_lul = {
+	enable = {
+		always = yes
+	}
+	abort = {
+		always = no
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		state_trigger = {
+			NOT = { has_state_flag = recent_naval_invasion_flag }
+			check_variable = { state_strategic_value < 3 }
+		}
+		value = -5
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		state_trigger = { 
+			NOT = { is_core_of = FROM.FROM }
+			NOT = { has_state_flag = recent_naval_invasion_flag }
+			check_variable = { state_strategic_value < 8 }
+		}
+		value = -3
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		state_trigger = { 
+			NOT = { is_core_of = FROM.FROM }
+			NOT = { has_state_flag = recent_naval_invasion_flag }
+		}
+		value = -3
+	}
+	ai_strategy = {
+		type = invasion_unit_request
+		state_trigger = { 
+			NOT = { is_core_of = FROM.FROM }
+			NOT = { has_state_flag = recent_naval_invasion_flag }
+			NOT = {
+				any_province_building_level = {
+					province = {
+						all_provinces = yes
+					}
+					building = supply_node
+					level > 0
+				}
+			}
+		}
+		value = -2
+	}
+}

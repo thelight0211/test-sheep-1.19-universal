@@ -1,0 +1,44 @@
+perform_the_industry_direction_calculation = {
+	set_temp_variable = { ROOT.var_starting_military_industry = ROOT.num_of_military_factories }
+	set_temp_variable = { ROOT.var_starting_civilian_industry = ROOT.num_of_civilian_factories }
+	divide_temp_variable = { ROOT.var_starting_military_industry = ROOT.var_starting_civilian_industry }
+	if = {
+		limit = {
+			check_variable = { ROOT.var_starting_military_industry = 0.15 compare = less_than_or_equals }
+		}
+		set_country_flag = country_mil_ramp_up_015
+	}
+	if = {
+		limit = {
+			check_variable = { ROOT.var_starting_military_industry = 0.25 compare = less_than_or_equals }
+		}
+		set_country_flag = country_mil_ramp_up_025
+	}
+	if = {
+		limit = {
+			check_variable = { ROOT.var_starting_military_industry = 0.50 compare = less_than_or_equals }
+		}
+		set_country_flag = country_mil_ramp_up_050
+	}
+}
+perform_the_manpower_direction_calculation = {
+	set_temp_variable = { ROOT.state_calc = ROOT.num_core_states }
+	set_temp_variable = { ROOT.man_calc = ROOT.max_manpower_k }
+	divide_temp_variable = { ROOT.man_calc = ROOT.state_calc }
+	if = {
+		limit = {
+			ROOT = { check_variable = { ROOT.man_calc < 1000 } }
+		}
+		ROOT = {
+			set_country_flag = need_manpower
+		}
+	}
+	if = {
+		limit = {
+			ROOT = { check_variable = { ROOT.man_calc > 1000 } }
+		}
+		ROOT = {
+			set_country_flag = need_quality
+		}
+	}
+}

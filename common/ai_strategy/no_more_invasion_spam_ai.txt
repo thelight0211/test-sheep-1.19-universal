@@ -1,0 +1,40 @@
+# Naval Invasion Spam Prevention Strategy
+# Prevents minor nations from spamming naval invasions
+# This strategy suppresses the invade focus for nations that shouldn't be doing naval invasions
+
+no_more_invasion_spam_ai = {
+	enable = {
+		has_government = democratic
+		has_government = communism
+		has_government = fascism
+		has_government = neutrality
+	}
+	
+	abort = {
+	}
+	
+	# Restrict naval invasion focus for minor nations
+	invade = {
+		factor = 0
+		modifier = {
+			factor = -100
+			is_major = no
+		}
+	}
+	
+	invasion_unit_request = {
+		factor = 0
+		modifier = {
+			factor = -100
+			is_major = no
+		}
+	}
+	
+	naval_invasion_focus = {
+		factor = 0
+		modifier = {
+			factor = -100
+			is_major = no
+		}
+	}
+}

@@ -1,0 +1,33 @@
+perform_the_threat_calculation = {
+	set_temp_variable = { ROOT.current_threat = global.threat }
+	set_temp_variable = { ROOT.personal_threat = ROOT.has_added_tension_amount }
+	multiply_temp_variable = { ROOT.personal_threat = ROOT.current_threat }
+	if = {
+		limit = {
+			check_variable = { ROOT.personal_threat > 0.75 }
+			NOT = { has_country_flag = major_antagonist_flag }
+		}
+		set_country_flag = major_antagonist_flag
+	}
+	else_if = {
+		limit = {
+			check_variable = { ROOT.personal_threat < 0.75 }
+			has_country_flag = major_antagonist_flag
+		}
+		clr_country_flag = major_antagonist_flag
+	}
+	else_if = {
+		limit = {
+			check_variable = { ROOT.personal_threat > 0.25 }
+			NOT = { has_country_flag = antagonist_flag }
+		}
+		set_country_flag = antagonist_flag
+	}
+	else_if = {
+		limit = {
+			check_variable = { ROOT.personal_threat < 0.25 }
+			has_country_flag = antagonist_flag
+		}
+		clr_country_flag = antagonist_flag
+	}
+}

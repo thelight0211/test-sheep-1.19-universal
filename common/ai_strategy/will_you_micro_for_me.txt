@@ -1,0 +1,14 @@
+
+prefer_AIFC_micro = {
+	enable = {
+		has_country_flag = steel_availability_flag
+		has_country_flag = tungsten_availability_flag
+	}
+
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = force_concentration_factor
+		value = 50
+	}
+}
