@@ -6,6 +6,10 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		clear_array = valid_naval_targets
+		set_temp_variable = {
+			var = found_target
+			value = 0
+		}
 		every_state = {
 			limit = {
 				is_coastal = yes
@@ -17,10 +21,15 @@ country_event = {
 			if = {
 				limit = {
 					ROOT = {
+						check_variable = {
+							var = invasion_failure_months
+							value = 3
+							compare = less_than
+						}
 						any_controlled_state = {
 							distance_to = {
 								target = event_target:dynamic_invasion_candidate_state
-								value < 150
+								value < 50
 							}
 						}
 					}
@@ -31,6 +40,78 @@ country_event = {
 						value = event_target:dynamic_invasion_candidate_state
 					}
 				}
+				set_temp_variable = {
+					var = found_target
+					value = 1
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						check_variable = {
+							var = invasion_failure_months
+							value = 6
+							compare = less_than
+						}
+						any_controlled_state = {
+							distance_to = {
+								target = event_target:dynamic_invasion_candidate_state
+								value < 75
+							}
+						}
+					}
+				}
+				ROOT = {
+					add_to_array = {
+						array = valid_naval_targets
+						value = event_target:dynamic_invasion_candidate_state
+					}
+				}
+				set_temp_variable = {
+					var = found_target
+					value = 1
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						any_controlled_state = {
+							distance_to = {
+								target = event_target:dynamic_invasion_candidate_state
+								value < 80
+							}
+						}
+					}
+				}
+				ROOT = {
+					add_to_array = {
+						array = valid_naval_targets
+						value = event_target:dynamic_invasion_candidate_state
+					}
+				}
+				set_temp_variable = {
+					var = found_target
+					value = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				check_variable = {
+					var = found_target
+					value = 1
+					compare = equals
+				}
+			}
+			set_variable = {
+				var = invasion_failure_months
+				value = 0
+			}
+		}
+		else = {
+			add_to_variable = {
+				var = invasion_failure_months
+				value = 1
 			}
 		}
 	}
