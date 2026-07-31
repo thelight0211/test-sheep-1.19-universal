@@ -5,6 +5,7 @@ country_event = {
 	hidden = yes
 	is_triggered_only = yes
 	immediate = {
+		log = "[dynamic_invasion_debug_EVENT_FIRED] country=[ROOT.GetTag]"
 		clear_array = valid_naval_targets
 		set_temp_variable = {
 			var = found_target
@@ -107,12 +108,14 @@ country_event = {
 				var = invasion_failure_months
 				value = 0
 			}
+			log = "[dynamic_invasion_debug_RESULT] country=[ROOT.GetTag] found_target=YES"
 		}
 		else = {
 			add_to_variable = {
 				var = invasion_failure_months
 				value = 1
 			}
+			log = "[dynamic_invasion_debug_RESULT] country=[ROOT.GetTag] found_target=NO failure_months=[?ROOT.invasion_failure_months]"
 		}
 	}
 }
