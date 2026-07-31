@@ -1,6 +1,7 @@
 on_actions = {
 	on_monthly = {
 		effect = {
+			log = "[dynamic_invasion_debug_MONTHLY_TICK] country=[ROOT.GetTag]"
 			if = {
 				limit = {
 					is_major = yes
