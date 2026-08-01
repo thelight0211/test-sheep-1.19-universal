@@ -140,7 +140,7 @@ major_antagonist_need_more_factories = {
 increase_factory_mil_ramp_up_015 = {
 	enable = {
 		has_country_flag = country_mil_ramp_up_015
-		ROOT.num_of_military_factories < ROOT.num_of_civilian_factories
+		num_of_military_factories < num_of_civilian_factories
 	}
 	abort_when_not_enabled = yes
 	
@@ -152,7 +152,7 @@ increase_factory_mil_ramp_up_015 = {
 increase_factory_mil_ramp_up_025 = {
 	enable = {
 		has_country_flag = country_mil_ramp_up_025
-		ROOT.num_of_military_factories < ROOT.num_of_civilian_factories
+		num_of_military_factories < num_of_civilian_factories
 	}
 	abort_when_not_enabled = yes
 	
@@ -164,7 +164,7 @@ increase_factory_mil_ramp_up_025 = {
 increase_factory_mil_ramp_up_050 = {
 	enable = {
 		has_country_flag = country_mil_ramp_up_050
-		ROOT.num_of_military_factories < ROOT.num_of_civilian_factories
+		num_of_military_factories < num_of_civilian_factories
 	}
 	abort_when_not_enabled = yes
 	
@@ -175,7 +175,7 @@ increase_factory_mil_ramp_up_050 = {
 }
 increase_factory_weight = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -192,7 +192,7 @@ increase_factory_weight = {
 }
 increase_factory_weight2 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -209,7 +209,7 @@ increase_factory_weight2 = {
 }
 increase_factory_weight3 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -226,7 +226,7 @@ increase_factory_weight3 = {
 }
 increase_factory_weight4 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -243,7 +243,7 @@ increase_factory_weight4 = {
 }
 increase_factory_weight5 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -260,7 +260,7 @@ increase_factory_weight5 = {
 }
 increase_factory_weight6 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -277,7 +277,7 @@ increase_factory_weight6 = {
 }
 save_pp = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_political_power < 200
@@ -293,7 +293,7 @@ save_pp = {
 
 spend_pp_on_chief_of_army = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_political_power > 125
@@ -315,7 +315,7 @@ spend_pp_on_chief_of_army = {
 }
 spend_pp_on_political_advisor = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_political_power > 125
@@ -331,7 +331,7 @@ spend_pp_on_political_advisor = {
 }
 minor_count_til_10 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		is_major = no
@@ -347,7 +347,7 @@ minor_count_til_10 = {
 
 scout_plane_cuz_why_not = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_deployed_air_force_size = {
@@ -365,7 +365,7 @@ scout_plane_cuz_why_not = {
 }
 there_is_no_place_for_coward_in_a_civil_war = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_civil_war = yes
@@ -391,7 +391,7 @@ there_is_no_place_for_coward_in_a_civil_war = {
 }
 why_dont_we_have_some_railguns = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		date < 1942.1.1
@@ -409,7 +409,7 @@ why_dont_we_have_some_railguns = {
 }
 why_dont_we_have_some_railguns2 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		date < 1945.1.1
@@ -427,7 +427,7 @@ why_dont_we_have_some_railguns2 = {
 }
 minimum_fighter_production_1 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 100
@@ -448,7 +448,7 @@ minimum_fighter_production_1 = {
 
 minimum_fighter_production_2 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 150
@@ -468,7 +468,7 @@ minimum_fighter_production_2 = {
 }
 minimum_fighter_production_3 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 200
@@ -489,7 +489,7 @@ minimum_fighter_production_3 = {
 
 minimum_fighter_production_4 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 250
@@ -511,7 +511,7 @@ minimum_fighter_production_4 = {
 
 minimum_fighter_production_5 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 300
@@ -531,7 +531,7 @@ minimum_fighter_production_5 = {
 }
 standard_CAS_production_for_AI_1 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_deployed_air_force_size = {
@@ -550,7 +550,7 @@ standard_CAS_production_for_AI_1 = {
 }
 standard_CAS_production_for_AI_2 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_deployed_air_force_size = {
@@ -569,7 +569,7 @@ standard_CAS_production_for_AI_2 = {
 }
 standard_CAS_production_for_AI_3 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_deployed_air_force_size = {
@@ -588,7 +588,7 @@ standard_CAS_production_for_AI_3 = {
 }
 standard_CAS_production_for_AI_4 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_deployed_air_force_size = {
@@ -607,7 +607,7 @@ standard_CAS_production_for_AI_4 = {
 }
 standard_CAS_production_for_AI_5 = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_deployed_air_force_size = {
@@ -626,7 +626,7 @@ standard_CAS_production_for_AI_5 = {
 }
 basic_mil_fulfillment = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories < 5
@@ -641,7 +641,7 @@ basic_mil_fulfillment = {
 
 basic_production_start = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 4
@@ -667,7 +667,7 @@ basic_production_start = {
 }
 basic_production_continue = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 14
@@ -698,7 +698,7 @@ basic_production_continue = {
 }
 basic_production_final = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		num_of_military_factories > 29
@@ -729,7 +729,7 @@ basic_production_final = {
 }
 theres_just_no_point_in_garrisoning = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 
 	enable = {
@@ -752,7 +752,7 @@ theres_just_no_point_in_garrisoning = {
 
 inland_dont_need_garrison = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 
 	enable = {
@@ -772,7 +772,7 @@ inland_dont_need_garrison = {
 
 at_war_with_inland_dont_need_garrison = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 
 	enable = {
@@ -794,7 +794,7 @@ at_war_with_inland_dont_need_garrison = {
 }
 nobody_ever_upgrade_mech_unless_stockpile_is_giga = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_tech = mechanised_infantry
@@ -824,7 +824,7 @@ nobody_ever_upgrade_mech_unless_stockpile_is_giga = {
 
 major_train = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 
 	enable = {
@@ -841,7 +841,7 @@ major_train = {
 }
 major_train_base = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 
 	enable = {
@@ -856,7 +856,7 @@ major_train_base = {
 }
 minor_train_base = {
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 
 	enable = {

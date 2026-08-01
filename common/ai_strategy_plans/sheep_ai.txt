@@ -10,7 +10,7 @@ doc_ai = {
 	name = "doctrine stuffs"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		always = yes
@@ -32,7 +32,7 @@ g_ai = {
 	name = "g"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		date > 1936.5.1
@@ -58,7 +58,7 @@ nonnavy_ai = {
 	name = "M"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_navy_size = {
@@ -87,7 +87,7 @@ armor_ai = {
 	name = "M"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_global_flag = {
@@ -112,7 +112,7 @@ reduce_computing_output = {
 	name = "A"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		has_tech = electronic_mechanical_engineering
@@ -132,7 +132,7 @@ asia_ai = {
 	name = "Minor As Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		capital_scope = {
@@ -159,7 +159,7 @@ german_ai = {
 	name = "Minor German Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		OR = {
@@ -193,7 +193,7 @@ german_aim = {
 	name = "Minor German Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		OR = {
@@ -225,7 +225,7 @@ russov_ai = {
 	name = "Minor Russian Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		OR = {
@@ -278,7 +278,7 @@ russov_aiwar = {
 	name = "Minor Russian Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		OR = {
@@ -332,7 +332,7 @@ western_ai = {
 	name = "Minor A Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		OR = {
@@ -370,7 +370,7 @@ western_aim = {
 	name = "Minor A Allies"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		OR = {
@@ -405,7 +405,7 @@ every_ai1 = {
 	name = "A"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		capital_scope = { is_on_continent = europe }
@@ -428,7 +428,7 @@ every_ai2 = {
 	name = "A"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		capital_scope = { is_on_continent = europe }
@@ -451,7 +451,7 @@ every_ai2b = {
 	name = "A"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		capital_scope = { is_on_continent = europe }
@@ -477,7 +477,7 @@ every_ai3 = {
 	name = "A"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		capital_scope = { is_on_continent = europe }
@@ -519,7 +519,7 @@ AI_boost_tanks = {
 	name = "A"
 
 	allowed = {
-		check_original_tag
+		check_original_tag = yes
 	}
 	enable = {
 		count_triggers = {
