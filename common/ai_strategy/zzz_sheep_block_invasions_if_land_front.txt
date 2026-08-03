@@ -8,11 +8,14 @@ block_invasions_if_land_front_exists = {
 	ai_strategy = {
 		type = invasion_unit_request
 		state_trigger = {
-			controller = {
-				OR = {
-					is_neighbor_of = FROM
-					any_neighbor_country = {
-						is_ally_with = FROM
+			any_neighbor_state = {
+				controller = {
+					OR = {
+						tag = FROM
+						AND = {
+							is_ally_with = FROM
+							has_capitulated = no
+						}
 					}
 				}
 			}
@@ -23,11 +26,14 @@ block_invasions_if_land_front_exists = {
 	ai_strategy = {
 		type = front_control
 		state_trigger = {
-			controller = {
-				OR = {
-					is_neighbor_of = FROM
-					any_neighbor_country = {
-						is_ally_with = FROM
+			any_neighbor_state = {
+				controller = {
+					OR = {
+						tag = FROM
+						AND = {
+							is_ally_with = FROM
+							has_capitulated = no
+						}
 					}
 				}
 			}

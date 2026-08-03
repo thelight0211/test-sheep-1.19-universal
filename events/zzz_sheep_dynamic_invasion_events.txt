@@ -15,7 +15,10 @@ country_event = {
 				controller = {
 					OR = {
 						tag = ROOT
-						is_ally_with = ROOT
+						AND = {
+							is_ally_with = ROOT
+							has_capitulated = no
+						}
 					}
 				}
 			}
@@ -41,7 +44,7 @@ country_event = {
 						array = root_coastal_ports
 						distance_to = {
 							target = PREV.PREV
-							value < 200
+							value < 350
 						}
 					}
 				}
@@ -76,7 +79,7 @@ country_event = {
 							array = root_coastal_ports
 							distance_to = {
 								target = PREV.PREV
-								value < 450
+								value < 600
 							}
 						}
 					}
@@ -112,7 +115,7 @@ country_event = {
 							array = root_coastal_ports
 							distance_to = {
 								target = PREV.PREV
-								value < 1000
+								value < 1200
 							}
 						}
 					}
