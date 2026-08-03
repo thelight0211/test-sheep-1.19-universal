@@ -44,7 +44,7 @@ on_actions = {
 	 	effect = {
 		 	if = {
 				limit = {
-					threat > 5
+					threat > 0.5
 					any_country = { has_added_tension_amount > 3 }
 				}
 				every_country = {

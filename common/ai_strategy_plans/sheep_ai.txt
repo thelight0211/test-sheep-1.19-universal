@@ -22,11 +22,6 @@ doc_ai = {
 		army_chief_offensive_2 = 9999.0
 		army_chief_offensive_3 = 99999
 	}
-	ai_strategy = {
-		type = research_weight_factor
-		id = mobile_warfare
-		value = -100
-	}
 }
 g_ai = {
 	name = "g"

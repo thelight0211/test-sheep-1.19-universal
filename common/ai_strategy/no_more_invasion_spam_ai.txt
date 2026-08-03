@@ -1,28 +1,22 @@
 no_more_invasion_spam_ai = {
 	enable = {
 		is_major = no
-		OR = {
-			has_government = democratic
-			has_government = communism
-			has_government = fascism
-			has_government = neutrality
-		}
 	}
 
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = invade
-		value = -100
+		value = -999999
 	}
 
 	ai_strategy = {
 		type = invasion_unit_request
-		value = -100
+		value = -999999
 	}
 
 	ai_strategy = {
 		type = naval_invasion_focus
-		value = -100
+		value = -999999
 	}
 }

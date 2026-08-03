@@ -2,14 +2,37 @@ block_invasions_if_land_front_exists = {
 	enable = {
 		always = yes
 	}
+
 	abort_when_not_enabled = yes
+
 	ai_strategy = {
 		type = invasion_unit_request
 		state_trigger = {
-			owner = {
-				is_neighbor_of = FROM.FROM
+			controller = {
+				OR = {
+					is_neighbor_of = FROM
+					any_neighbor_country = {
+						is_ally_with = FROM
+					}
+				}
 			}
 		}
 		value = -999999
+	}
+
+	ai_strategy = {
+		type = front_control
+		state_trigger = {
+			controller = {
+				OR = {
+					is_neighbor_of = FROM
+					any_neighbor_country = {
+						is_ally_with = FROM
+					}
+				}
+			}
+		}
+		ordertype = invasion
+		execute_order = no
 	}
 }

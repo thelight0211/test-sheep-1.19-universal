@@ -192,14 +192,7 @@ NDefines.NAI.ASSIGN_TANKS_TO_JUNGLE = -20
 
 NDefines.NAI.RESERVE_TO_COMMITTED_BALANCE = 0.3
 
--- No More Invasion Spam: Naval Invasion Restrictions
--- Increase preparation time to prevent hasty invasions
-NDefines.NNavy.NAVAL_INVASION_PREPARE_DAYS = 120
-
--- Increase failed invasion cooldown to discourage spam
-NDefines.NNavy.FAILED_INVASION_AVOID_DURATION = 180
-
--- Raise execution thresholds - require stronger position before attacking
-NDefines.NNavy.MIN_INVASION_PLAN_VALUE_TO_EXECUTE = 0.75
-NDefines.NNavy.MIN_INVASION_PREPARE_PERCENT_OF_ORG = 0.85
-NDefines.NNavy.MIN_INVASION_PREPARE_PERCENT_OF_READINESS = 0.80
+NDefines.NAI.FAILED_INVASION_AVOID_DURATION = 180
+NDefines.NAI.MIN_INVASION_PLAN_VALUE_TO_EXECUTE = 0.20
+NDefines.NAI.MIN_INVASION_ORG_FACTOR_TO_EXECUTE = 0.75
+NDefines.NAI.PLAN_AVG_PREPARATION_TO_EXECUTE = 0.50

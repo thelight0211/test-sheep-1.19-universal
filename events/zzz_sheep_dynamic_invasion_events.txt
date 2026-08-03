@@ -4,118 +4,132 @@ country_event = {
 	id = dynamic_invasion.1
 	hidden = yes
 	is_triggered_only = yes
+
 	immediate = {
-		log = "[dynamic_invasion_debug_EVENT_FIRED] country=[ROOT.GetTag]"
 		clear_array = valid_naval_targets
-		set_temp_variable = {
-			var = found_target
-			value = 0
-		}
+		clear_temp_array = root_coastal_ports
+
 		every_state = {
 			limit = {
 				is_coastal = yes
-				owner = {
+				controller = {
+					OR = {
+						tag = ROOT
+						is_ally_with = ROOT
+					}
+				}
+			}
+			add_to_temp_array = {
+				temp_array = root_coastal_ports
+				value = THIS
+			}
+		}
+
+		set_temp_variable = {
+			temp_var = found_target
+			value = 0
+		}
+
+		every_state = {
+			limit = {
+				is_coastal = yes
+				controller = {
 					has_war_with = ROOT
 				}
-			}
-			save_event_target_as = dynamic_invasion_candidate_state
-			if = {
-				limit = {
-					ROOT = {
-						check_variable = {
-							var = invasion_failure_months
-							value = 3
-							compare = less_than
-						}
-						any_controlled_state = {
-							distance_to = {
-								target = event_target:dynamic_invasion_candidate_state
-								value < 50
-							}
-						}
-					}
-				}
 				ROOT = {
-					add_to_array = {
-						array = valid_naval_targets
-						value = event_target:dynamic_invasion_candidate_state
+					any_of_scopes = {
+						array = root_coastal_ports
+						distance_to = {
+							target = PREV.PREV
+							value < 200
+						}
 					}
-				}
-				set_temp_variable = {
-					var = found_target
-					value = 1
 				}
 			}
-			else_if = {
-				limit = {
-					ROOT = {
-						check_variable = {
-							var = invasion_failure_months
-							value = 6
-							compare = less_than
-						}
-						any_controlled_state = {
-							distance_to = {
-								target = event_target:dynamic_invasion_candidate_state
-								value < 75
-							}
-						}
-					}
-				}
-				ROOT = {
-					add_to_array = {
-						array = valid_naval_targets
-						value = event_target:dynamic_invasion_candidate_state
-					}
+			ROOT = {
+				add_to_array = {
+					array = valid_naval_targets
+					value = PREV
 				}
 				set_temp_variable = {
-					var = found_target
-					value = 1
-				}
-			}
-			else_if = {
-				limit = {
-					ROOT = {
-						any_controlled_state = {
-							distance_to = {
-								target = event_target:dynamic_invasion_candidate_state
-								value < 80
-							}
-						}
-					}
-				}
-				ROOT = {
-					add_to_array = {
-						array = valid_naval_targets
-						value = event_target:dynamic_invasion_candidate_state
-					}
-				}
-				set_temp_variable = {
-					var = found_target
+					temp_var = found_target
 					value = 1
 				}
 			}
 		}
+
 		if = {
 			limit = {
 				check_variable = {
-					var = found_target
-					value = 1
-					compare = equals
+					temp_var = found_target
+					value = 0
 				}
 			}
-			set_variable = {
-				var = invasion_failure_months
-				value = 0
+			every_state = {
+				limit = {
+					is_coastal = yes
+					controller = {
+						has_war_with = ROOT
+					}
+					ROOT = {
+						any_of_scopes = {
+							array = root_coastal_ports
+							distance_to = {
+								target = PREV.PREV
+								value < 450
+							}
+						}
+					}
+				}
+				ROOT = {
+					add_to_array = {
+						array = valid_naval_targets
+						value = PREV
+					}
+					set_temp_variable = {
+						temp_var = found_target
+						value = 1
+					}
+				}
 			}
-			log = "[dynamic_invasion_debug_RESULT] country=[ROOT.GetTag] found_target=YES"
 		}
-		else = {
-			add_to_variable = {
-				var = invasion_failure_months
-				value = 1
+
+		if = {
+			limit = {
+				check_variable = {
+					temp_var = found_target
+					value = 0
+				}
 			}
-			log = "[dynamic_invasion_debug_RESULT] country=[ROOT.GetTag] found_target=NO failure_months=[?ROOT.invasion_failure_months]"
+			every_state = {
+				limit = {
+					is_coastal = yes
+					controller = {
+						has_war_with = ROOT
+					}
+					ROOT = {
+						any_of_scopes = {
+							array = root_coastal_ports
+							distance_to = {
+								target = PREV.PREV
+								value < 1000
+							}
+						}
+					}
+				}
+				ROOT = {
+					add_to_array = {
+						array = valid_naval_targets
+						value = PREV
+					}
+					set_temp_variable = {
+						temp_var = found_target
+						value = 1
+					}
+				}
+			}
 		}
+
+		clear_temp_array = root_coastal_ports
 	}
 }
