@@ -155,7 +155,7 @@ perform_the_industry_calculation_4 = {
 	else_if = {
 		limit = {
 			check_variable = {
-				ROOT.steel_cons > 0.50
+				ROOT.tungsten_cons > 0.50
 			}
 			has_country_flag = tungsten_availability_flag
 		}

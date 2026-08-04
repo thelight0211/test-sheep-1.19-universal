@@ -15,14 +15,10 @@ on_actions = {
 	on_startup = {
 	 	effect = {
 		 	set_global_flag = the_game_has_begun
-	 	}
-	 	effect = {
 		 	every_country = {
 				perform_the_industry_direction_calculation = yes
 				perform_the_manpower_direction_calculation = yes
 			}
-	 	}
-		effect = {
 			every_country = {
 				limit = {
 					is_ai = yes
@@ -38,7 +34,7 @@ on_actions = {
 					add_ideas = incredibly_funni_navy_stuffs
 				}
 			}
-		}
+	 	}
 	}
 	on_monthly = {
 	 	effect = {

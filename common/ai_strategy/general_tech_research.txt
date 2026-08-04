@@ -406,7 +406,7 @@ industry_tech_con3 = {
 	}
 }
 
-industry_tech_improv1 = {
+industry_tech_improv2 = {
 	allowed = {
 		check_original_tag = yes
 	}
