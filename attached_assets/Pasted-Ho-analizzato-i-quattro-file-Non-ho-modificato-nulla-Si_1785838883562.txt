@@ -1,0 +1,244 @@
+Ho analizzato i quattro file. Non ho modificato nulla.
+Sintesi
+La mod costruisce un sistema abbastanza pulito in tre pezzi:
+[on_actions (line 2)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/on_actions/zzz_sheep_dynamic_invasion_on_actions.txt:2) aggiorna i dati quando un major AI è in guerra, ogni mese e allo scoppio di una guerra.
+[evento `dynamic_invasion.1` (line 3)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/events/zzz_sheep_dynamic_invasion_events.txt:3) calcola gli stati costieri nemici “validi” in base alla distanza dai porti propri o alleati.
+Le due [ai_strategy (line 1)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/ai_strategy/zzz_sheep_dynamic_distance_invasion.txt:1) bloccano o favoriscono invasioni navali usando quell’array.
+Logica principale
+L’evento svuota valid_naval_targets, raccoglie gli stati costieri controllati dal paese AI o dai suoi alleati non capitolati, poi cerca stati costieri nemici entro tre fasce: < 350, poi < 600, poi < 1200. La cosa importante è che passa alla fascia successiva solo se non ha trovato nessun bersaglio nella fascia precedente. Quindi non “somma” tutti i target entro 1200: sceglie la fascia più vicina che produce almeno un bersaglio.
+Questo è probabilmente voluto: impedisce all’AI di lanciare invasioni lontane quando esistono bersagli navali più vicini.
+Punti forti
+Buona limitazione del carico: l’on_action gira solo su is_major = yes, is_ai = yes, has_war = yes.
+L’array viene ricalcolato da zero, quindi non accumula bersagli vecchi.
+Il blocco block_invasions_if_land_front_exists è sensato: se uno stato costiero nemico confina con territori propri o alleati, la mod prova a impedire invasioni navali inutili lì.
+La strategia distanza ha sia freno forte (-999999) sia incentivo positivo (1000), quindi dovrebbe pesare parecchio sul comportamento AI.
+Rischi / cose da verificare in game
+In [eventi righe 47-52 (line 47)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/events/zzz_sheep_dynamic_invasion_events.txt:47), l’uso di any_of_scopes + distance_to + array temporaneo è il punto più delicato. Se HOI4 accetta bene array temporanei di state scope lì, funziona; se no, l’array valid_naval_targets resta vuoto e la strategia blocca quasi tutte le invasioni.
+In [dynamic distance righe 16-23 (line 16)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/ai_strategy/zzz_sheep_dynamic_distance_invasion.txt:16), se valid_naval_targets è vuoto o non popolato correttamente, ogni stato costiero nemico viene penalizzato con -999999.
+Il file [block land front (line 1)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/ai_strategy/zzz_sheep_block_invasions_if_land_front.txt:1) è molto aggressivo: blocca invasioni anche quando una naval invasion potrebbe essere utile per aggirare o supportare un fronte già esistente.
+L’uso di porti alleati/non capitolati come base logica amplia molto il raggio effettivo. Questo può essere buono, ma può anche far considerare “vicini” bersagli che l’AI poi non riesce davvero a supportare bene via mare.
+Verdetto
+La struttura è coerente e l’idea è buona: limita le invasioni navali suicide/lontane e spinge l’AI verso target costieri più plausibili. Il punto da testare assolutamente è se any_of_scopes con root_coastal_ports e distance_to funziona davvero nel log di HOI4. Se quello passa senza errori, la mod dovrebbe fare quello che promette.
+
+
+14:10
+
+
+
+
+
+
+
+
+sono nello scenario storico, libia caduta in mano alleata da 6 mesi. l'unico piano degli alleati è stato invadere navalmente il dodecaneso, dopo aver sbarcato lì con successo, nessun ulteriore piano per la sicilia o la normandia
+
+
+
+
+
+
+14:54
+
+
+
+
+
+
+Durata lavoro: 35s
+
+
+
+Sì, questo comportamento è molto compatibile con la logica attuale della mod. Il punto sospetto principale è questo:
+[evento `dynamic_invasion.1` (line 36)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/events/zzz_sheep_dynamic_invasion_events.txt:36) non costruisce una lista “strategica” di tutti i bersagli utili. Costruisce una lista per fascia di distanza, e appena trova almeno un bersaglio nella fascia più vicina, non passa alle fasce successive.
+Quindi se gli Alleati trovano un bersaglio valido entro < 350 o < 600, tipo Dodecaneso/Egeo/Grecia, la mod può impedire che Sicilia o Normandia entrino mai in valid_naval_targets, anche se sarebbero storicamente molto più importanti.
+Il secondo problema è che dopo la conquista del Dodecaneso, quel territorio diventa una nuova costa alleata. Al ricalcolo mensile, l’AI può iniziare a considerare “vicini” altri bersagli nell’Egeo o nei Balcani, e rimanere mentalmente intrappolata lì. In pratica la mod sta dicendo: “scegli i bersagli navali più vicini”, non “scegli i bersagli navali più sensati”.
+Per Sicilia e Normandia, i due blocchi che possono bloccare tutto sono:
+[dynamic distance (line 16)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/ai_strategy/zzz_sheep_dynamic_distance_invasion.txt:16): se uno stato costiero nemico non è in valid_naval_targets, prende value = -999999.
+[land front blocker (line 8)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/ai_strategy/zzz_sheep_block_invasions_if_land_front.txt:8): se esiste un fronte terrestre vicino, blocca invasioni lì. Questo può essere utile, ma è molto brutale.
+La diagnosi più probabile: la mod è troppo restrittiva e troppo “nearest-target first”. Funziona per evitare invasioni assurde lontanissime, ma può soffocare operazioni storiche perché Sicilia/Normandia non ricevono un’eccezione strategica o un punteggio prioritario.
+La correzione migliore sarebbe una di queste:
+Non fermarsi alla prima fascia trovata: aggiungere comunque anche i target entro 600/1200, magari con peso diverso.
+Aggiungere eccezioni/priorità per teatri storici: Sicilia, Italia meridionale, Normandia, Paesi Bassi, Danimarca.
+Ridurre il blocco -999999 a qualcosa di meno assoluto, tipo -500 o -1000, così l’AI vanilla può ancora forzare piani importanti.
+Escludere isole/minor fronts come Dodecaneso dal monopolizzare la logica dopo il primo sbarco riuscito.
+In breve: la mod non è “rotta” nel senso tecnico; sta facendo una scelta logica troppo rigida. Sta ottimizzando per distanza e sicurezza, e l’AI alleata quindi preferisce l’Egeo invece di aprire i grandi fronti storici.
+
+
+14:55
+
+
+
+
+
+
+
+
+ma a me sta bene che sbarchino nel dodecaneso, può avere senso, il problema è che poi non sbarcano più da nessun'altra parte
+
+
+
+
+
+
+14:56
+
+
+
+
+
+
+Esatto, allora il problema non è “Dodecaneso sì/no”. È che la mod, dopo aver trovato qualsiasi bersaglio valido vicino, smette di cercare altrove.
+Nel file eventi, questa variabile è il nodo:
+[evento righe 31-34 (line 31)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/events/zzz_sheep_dynamic_invasion_events.txt:31)
+set_temp_variable = {
+	temp_var = found_target
+	value = 0
+}
+Poi il flusso fa:
+cerca target entro 350
+se ne trova almeno uno, found_target = 1
+siccome found_target = 1, salta del tutto la ricerca entro 600
+salta anche quella entro 1200
+Quindi se il Dodecaneso entra nella prima fascia, Sicilia, Sardegna, Italia del sud o Normandia possono non entrare mai in valid_naval_targets. E siccome l’altro file dà -999999 a tutto ciò che non è in quell’array, l’AI viene praticamente proibita dal pianificare altri sbarchi.
+La correzione giusta per quello che vuoi tu è: non usare le fasce come alternativa esclusiva. Il Dodecaneso deve restare valido, ma anche gli altri bersagli entro una distanza ragionevole devono entrare nell’array.
+In pratica, nel file eventi conviene sostituire la logica a tre blocchi con una logica più semplice:
+every_state = {
+	limit = {
+		is_coastal = yes
+		controller = {
+			has_war_with = ROOT
+		}
+	}
+	save_event_target_as = target_enemy_state
+	if = {
+		limit = {
+			ROOT = {
+				any_of_scopes = {
+					array = root_coastal_ports
+					distance_to = {
+						target = event_target:target_enemy_state
+						value < 1200
+					}
+				}
+			}
+		}
+		ROOT = {
+			add_to_array = {
+				array = valid_naval_targets
+				value = event_target:target_enemy_state
+			}
+		}
+	}
+}
+Così il Dodecaneso resta permesso, ma non “consuma” tutta la logica. La mod diventa: “blocca gli sbarchi troppo lontani”, non “scegli solo il teatro più vicino e ignora tutto il resto”.
+Secondo ritocco consigliato: abbassare il blocco assoluto in [dynamic distance righe 16-23 (line 16)](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/sheep universal 1.19/common/ai_strategy/zzz_sheep_dynamic_distance_invasion.txt:16) da:
+value = -999999
+a qualcosa tipo:
+value = -5000
+o anche -1000, se vuoi lasciare più libertà all’AI vanilla. -999999 è praticamente un divieto totale; va bene per impedire follie, ma rischia di soffocare piani storici importanti.
+
+
+14:56
+
+
+
+
+
+
+
+
+ok, mi mandi i file corretti sul desktop in una nuova cartella o dove vuoi tu che li testo?
+
+
+
+
+
+
+14:58
+
+
+
+
+
+
+Durata lavoro: 1m 31s
+
+
+
+Fatto. Ho creato una cartella di test qui:
+[C:\\Users\\condr\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\3435731114\\field-reference\\sheep_invasion_fix_test](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/3435731114/field-reference/sheep_invasion_fix_test)
+Dentro trovi già la struttura pronta:
+common/on_actions/...
+common/ai_strategy/...
+events/...
+README.txt
+Le modifiche importanti sono due:
+L’evento ora aggiunge tutti i bersagli costieri nemici entro 1200, invece di fermarsi appena trova qualcosa vicino tipo Dodecaneso.
+La penalità per bersagli fuori lista passa da -999999 a -5000, quindi resta forte ma non strangola completamente l’AI vanilla.
+Per testarla, copia le cartelle common ed events da sheep_invasion_fix_test dentro la mod:
+C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19
+sovrascrivendo quei quattro file. Gli originali non li ho toccati.
+
+
+14:59
+
+
+
+
+
+
+
+
+mi fai anche un file batch che copia i file per sostituire quelli nella mod? questa è la struttura
+ai_strategy                                 C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   03/08/2026 09:43:22        File Folder
+ai_strategy_plans                           C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   01/08/2026 22:26:11        File Folder
+defines                                     C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   02/08/2026 14:34:23        File Folder
+ideas                                       C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   26/07/2026 22:56:20        File Folder
+on_actions                                  C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   03/08/2026 09:43:38        File Folder
+scripted_effects                            C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   26/07/2026 22:56:21        File Folder
+scripted_triggers                           C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\                   26/07/2026 22:56:21        File Folder
+frontline_consideration.txt                 C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       03/08/2026 08:56:05 3 KB   Documento di testo
+general_tech_research.txt                   C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       01/08/2026 11:06:46 8 KB   Documento di testo
+no_more_invasion_spam_ai.txt                C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       02/08/2026 14:40:14 1 KB   Documento di testo
+will_you_micro_for_me.txt                   C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       08/07/2026 16:57:28 1 KB   Documento di testo
+zzz_sheep_block_invasions_if_land_front.txt C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       03/08/2026 13:40:12 1 KB   Documento di testo
+zzz_sheep_dynamic_distance_invasion.txt     C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       03/08/2026 13:41:31 2 KB   Documento di testo
+zzzz_sheep_ai.txt                           C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy\       01/08/2026 11:06:15 14 KB  Documento di testo
+sheep_ai.txt                                C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ai_strategy_plans\ 01/08/2026 22:25:57 8 KB   Documento di testo
+zzzz_sheep_defines.lua                      C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\defines\           02/08/2026 16:55:37 9 KB   File di origine Lua
+lsm_generic.txt                             C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\ideas\             08/07/2026 17:05:02 1 KB   Documento di testo
+zzz_sheep_dynamic_invasion_on_actions.txt   C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\on_actions\        03/08/2026 13:40:49 1 KB   Documento di testo
+zzz_sheep_on_actions.txt                    C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\on_actions\        01/08/2026 22:26:16 2 KB   Documento di testo
+industry_calculation_scripted_effect.txt    C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\scripted_effects\  08/07/2026 16:57:28 5 KB   Documento di testo
+strategic_direction_scripted_effects.txt    C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\scripted_effects\  08/07/2026 16:57:28 2 KB   Documento di testo
+threat_calculation_scripted_effects.txt     C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\scripted_effects\  08/07/2026 16:57:28 1 KB   Documento di testo
+airbase_check_triggers.txt                  C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\scripted_triggers\ 08/07/2026 16:57:28 2 KB   Documento di testo
+check_tag_trigger.txt                       C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\common\scripted_triggers\ 08/07/2026 16:57:28 344 KB Documento di testo
+zzz_sheep_dynamic_invasion_events.txt C:\Users\condr\Documents\Paradox Interactive\Hearts of Iron IV\mod\sheep universal 1.19\events\ 03/08/2026 13:42:06 3 KB Documento di testo      
+
+
+
+
+Mostra di più
+
+15:02
+
+
+
+
+
+
+Durata lavoro: 38s
+
+
+
+Fatto. Ho aggiunto il batch qui:
+[C:\\Users\\condr\\Documents\\Paradox Interactive\\Hearts of Iron IV\\mod\\3435731114\\field-reference\\sheep_invasion_fix_test\\install_fix.bat](C:/Users/condr/Documents/Paradox Interactive/Hearts of Iron IV/mod/3435731114/field-reference/sheep_invasion_fix_test/install_fix.bat)
+Quando lo lanci, fa questo:
+crea un backup dei 4 file originali dentro sheep_invasion_fix_test\backup_DATA_ORA
+copia i file corretti nella mod sheep universal 1.19
+ti lascia aperta la finestra con il risultato
+Non l’ho eseguito io: ho solo creato il file, così decidi tu quando installare la patch.
+
+
+15:03

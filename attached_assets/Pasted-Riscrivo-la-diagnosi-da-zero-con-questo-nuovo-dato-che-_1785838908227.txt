@@ -1,0 +1,22 @@
+Riscrivo la diagnosi da zero con questo nuovo dato, che cambia tutto: se nemmeno V4 produce lo sbarco quando ritestata ora, e forse solo V3 (quella con naval_invasion_focus = 500 fisso, zero penalità negative di qualsiasi tipo, block_invasions_if_land_front_exists disabilitato del tutto) ci riusciva, allora il problema non è mai stato nei numeri di bilanciamento tra le versioni — è qualcosa di più a monte, probabilmente non deterministico o dipendente dallo stato della partita, non dal codice in sé.
+
+Diagnosi con contesto completo
+
+Osservazione chiave che cambia la diagnosi: la stessa identica versione di codice (V4) ha prodotto risultati diversi in test diversi — ha funzionato una volta, non ha funzionato un'altra. Questo esclude un bug di sintassi o logica statica (quelli darebbero sempre lo stesso esito) e punta verso una di queste tre categorie:
+
+1. Dipendenza dallo stato della partita, non dal codice
+Il test "riuscito" con V4 potrebbe essere accaduto in condizioni favorevoli che non si sono ripetute: superiorità navale sufficiente, convogli disponibili, unità da sbarco già pronte e posizionate, assenza di piani di invasione "bloccati" precedenti che l'AI non abbandona. Il sistema che abbiamo scritto influenza il punteggio di un target, ma non crea dal nulla le condizioni materiali (navi, truppe, org) che l'AI richiede per eseguire comunque. Se in un run le USA avevano già una flotta pronta vicino a Malta e nell'altro no, lo stesso codice produce esiti diversi.
+
+2. Instabilità nel motore Clausewitz su any_of_scopes/distance_to con array temporanei
+Il notebook, in una query precedente di questa sessione, aveva sollevato dubbi non completamente risolti sulla stabilità di any_of_scopes combinato con distance_to e array temporanei di stato — un punto segnalato come "da verificare in game" da un'altra istanza. Se questa combinazione a volte calcola correttamente le distanze e a volte no (per motivi di timing o ordine di valutazione), il popolamento di valid_naval_targets potrebbe essere incoerente tra un run e l'altro, anche a parità di codice.
+
+3. Comportamento AI intrinsecamente stocastico
+L'AI di HOI4 non è deterministica al 100% — la scelta finale di quale piano eseguire tra più opzioni valide include elementi di valutazione che possono variare leggermente run per run, specialmente quando i punteggi tra opzioni concorrenti sono vicini.
+
+Cosa NON è (escluso con certezza da questa sessione)
+Non è un problema di sintassi: tutti i file V4/V8 sono stati verificati bilanciati e sintatticamente validi
+Non è (probabilmente) un problema di numeri di bilanciamento: V8 ha valori ancora più favorevoli all'invasione di V4, eppure fallisce comunque
+Non è (con certezza) la regola "minori in fazione" aggiunta in V5+: è un sospetto plausibile ma senza conferma tecnica, e comunque non spiegherebbe perché V4 stessa ora fallisca
+Raccomandazione onesta
+
+Il debug fatto finora (tuo e delle altre istanze) ha escluso sistematicamente ogni variabile di codice statico. Se lo stesso codice produce esiti diversi in run diversi, il prossimo passo utile non è un'altra riscrittura di numeri o logica — è osservare direttamente in game, con -debug attivo, se valid_naval_targets contiene effettivamente la Sicilia nel momento critico (es. via un log temporaneo che stampa il contenuto dell'array quando l'evento gira), per capire se il problema è "l'array è vuoto/sbagliato" (bug di logica intermittente) oppure "l'array è corretto ma l'AI non esegue comunque" (problema di risorse materiali o comportamento AI, non risolvibile toccando questi file).
