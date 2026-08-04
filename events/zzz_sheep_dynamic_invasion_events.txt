@@ -28,93 +28,21 @@ country_event = {
 			}
 		}
 
-		set_temp_variable = {
-			temp_var = found_target
-			value = 0
-		}
-
 		every_state = {
 			limit = {
 				is_coastal = yes
 				controller = {
 					has_war_with = ROOT
 				}
-				ROOT = {
-					any_of_scopes = {
-						array = root_coastal_ports
-						distance_to = {
-							target = PREV.PREV
-							value < 350
-						}
-					}
-				}
 			}
-			ROOT = {
-				add_to_array = {
-					array = valid_naval_targets
-					value = PREV
-				}
-				set_temp_variable = {
-					temp_var = found_target
-					value = 1
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				check_variable = {
-					temp_var = found_target
-					value = 0
-				}
-			}
-			every_state = {
+			save_event_target_as = target_enemy_state
+			if = {
 				limit = {
-					is_coastal = yes
-					controller = {
-						has_war_with = ROOT
-					}
 					ROOT = {
 						any_of_scopes = {
 							array = root_coastal_ports
 							distance_to = {
-								target = PREV.PREV
-								value < 600
-							}
-						}
-					}
-				}
-				ROOT = {
-					add_to_array = {
-						array = valid_naval_targets
-						value = PREV
-					}
-					set_temp_variable = {
-						temp_var = found_target
-						value = 1
-					}
-				}
-			}
-		}
-
-		if = {
-			limit = {
-				check_variable = {
-					temp_var = found_target
-					value = 0
-				}
-			}
-			every_state = {
-				limit = {
-					is_coastal = yes
-					controller = {
-						has_war_with = ROOT
-					}
-					ROOT = {
-						any_of_scopes = {
-							array = root_coastal_ports
-							distance_to = {
-								target = PREV.PREV
+								target = event_target:target_enemy_state
 								value < 1200
 							}
 						}
@@ -123,11 +51,7 @@ country_event = {
 				ROOT = {
 					add_to_array = {
 						array = valid_naval_targets
-						value = PREV
-					}
-					set_temp_variable = {
-						temp_var = found_target
-						value = 1
+						value = event_target:target_enemy_state
 					}
 				}
 			}

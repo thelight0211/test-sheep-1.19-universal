@@ -20,29 +20,11 @@ dynamic_distance_invasion_limits = {
 				}
 			}
 		}
-		value = -999999
+		value = -250
 	}
 
 	ai_strategy = {
-		type = front_control
-		state_trigger = {
-			is_coastal = yes
-			controller = {
-				has_war_with = FROM
-			}
-			NOT = {
-				is_in_array = {
-					array = FROM.valid_naval_targets
-					value = THIS
-				}
-			}
-		}
-		ordertype = invasion
-		execute_order = no
-	}
-
-	ai_strategy = {
-		type = front_control
+		type = invasion_unit_request
 		state_trigger = {
 			is_coastal = yes
 			controller = {
@@ -53,7 +35,11 @@ dynamic_distance_invasion_limits = {
 				value = THIS
 			}
 		}
-		ordertype = invasion
-		execute_order = yes
+		value = 1500
+	}
+
+	ai_strategy = {
+		type = naval_invasion_focus
+		value = 150
 	}
 }

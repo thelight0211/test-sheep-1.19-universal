@@ -20,25 +20,6 @@ block_invasions_if_land_front_exists = {
 				}
 			}
 		}
-		value = -999999
-	}
-
-	ai_strategy = {
-		type = front_control
-		state_trigger = {
-			any_neighbor_state = {
-				controller = {
-					OR = {
-						tag = FROM
-						AND = {
-							is_ally_with = FROM
-							has_capitulated = no
-						}
-					}
-				}
-			}
-		}
-		ordertype = invasion
-		execute_order = no
+		value = -500
 	}
 }

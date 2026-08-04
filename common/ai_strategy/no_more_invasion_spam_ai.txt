@@ -1,6 +1,10 @@
 no_more_invasion_spam_ai = {
 	enable = {
 		is_major = no
+		any_country = {
+			is_major = yes
+			is_in_faction_with = ROOT
+		}
 	}
 
 	abort_when_not_enabled = yes

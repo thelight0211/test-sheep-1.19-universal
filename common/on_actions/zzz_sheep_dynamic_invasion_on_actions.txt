@@ -6,11 +6,6 @@ on_actions = {
 					is_major = yes
 					is_ai = yes
 					has_war = yes
-					NOT = {
-						any_enemy_country = {
-							is_neighbor_of = ROOT
-						}
-					}
 				}
 				country_event = dynamic_invasion.1
 			}
@@ -23,11 +18,6 @@ on_actions = {
 					is_major = yes
 					is_ai = yes
 					has_war = yes
-					NOT = {
-						any_enemy_country = {
-							is_neighbor_of = ROOT
-						}
-					}
 				}
 				country_event = dynamic_invasion.1
 			}
