@@ -6,23 +6,7 @@ dynamic_distance_invasion_limits = {
 
 	abort_when_not_enabled = yes
 
-	ai_strategy = {
-		type = invasion_unit_request
-		state_trigger = {
-			is_coastal = yes
-			controller = {
-				has_war_with = FROM
-			}
-			NOT = {
-				is_in_array = {
-					array = FROM.valid_naval_targets
-					value = THIS
-				}
-			}
-		}
-		value = -250
-	}
-
+	# Strongly boost invasion desire for reachable coastal targets
 	ai_strategy = {
 		type = invasion_unit_request
 		state_trigger = {
@@ -38,8 +22,9 @@ dynamic_distance_invasion_limits = {
 		value = 1500
 	}
 
+	# Push AI to actually create invasion plans
 	ai_strategy = {
 		type = naval_invasion_focus
-		value = 500
+		value = 2000
 	}
 }

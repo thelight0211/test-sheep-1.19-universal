@@ -51,5 +51,9 @@ country_event = {
 				}
 			}
 		}
+
+		# Debug log — check game.log to verify array population.
+		# Remove this line after testing.
+		log = "SHEEP_INVASION [Root.GetName]: valid_naval_targets populated with [?valid_naval_targets.GetCount] states"
 	}
 }
