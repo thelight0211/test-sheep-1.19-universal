@@ -40,6 +40,6 @@ dynamic_distance_invasion_limits = {
 
 	ai_strategy = {
 		type = naval_invasion_focus
-		value = 150
+		value = 500
 	}
 }

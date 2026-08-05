@@ -7,26 +7,6 @@ country_event = {
 
 	immediate = {
 		clear_array = valid_naval_targets
-		clear_temp_array = root_coastal_ports
-
-		every_state = {
-			limit = {
-				is_coastal = yes
-				controller = {
-					OR = {
-						tag = ROOT
-						AND = {
-							is_ally_with = ROOT
-							has_capitulated = no
-						}
-					}
-				}
-			}
-			add_to_temp_array = {
-				temp_array = root_coastal_ports
-				value = THIS
-			}
-		}
 
 		every_state = {
 			limit = {
@@ -35,15 +15,30 @@ country_event = {
 					has_war_with = ROOT
 				}
 			}
-			save_event_target_as = target_enemy_state
+			save_event_target_as = candidate_target
 			if = {
 				limit = {
-					ROOT = {
-						any_of_scopes = {
-							array = root_coastal_ports
-							distance_to = {
-								target = event_target:target_enemy_state
-								value < 1200
+					OR = {
+						# ROOT's own controlled coastal states within 1200
+						ROOT = {
+							any_controlled_state = {
+								is_coastal = yes
+								distance_to = {
+									target = event_target:candidate_target
+									value < 1200
+								}
+							}
+						}
+						# Allied coastal states within 1200
+						any_country = {
+							is_ally_with = ROOT
+							has_capitulated = no
+							any_controlled_state = {
+								is_coastal = yes
+								distance_to = {
+									target = event_target:candidate_target
+									value < 1200
+								}
 							}
 						}
 					}
@@ -51,12 +46,10 @@ country_event = {
 				ROOT = {
 					add_to_array = {
 						array = valid_naval_targets
-						value = event_target:target_enemy_state
+						value = event_target:candidate_target
 					}
 				}
 			}
 		}
-
-		clear_temp_array = root_coastal_ports
 	}
 }
